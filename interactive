@@ -1,0 +1,43 @@
+#!/bin/bash
+#################################
+#
+#          Backup Script
+#          Ryan Cook
+# 
+################################
+
+# What to Backup
+backup_dirs=( "$@" )
+backup_dest="$dest"
+
+# Filename
+day=$(date +%A)
+hostname=$(hostname -s)
+filename="$hostname-$day.tgz"
+
+# Checks to make sure the destination folder exists, and if not it creates it
+check_dest()
+{
+if [[ ! -d "$backup_dest" ]]; then
+        echo ""$backup_dest" doesnt exist, creating it now.."
+        mkdir "$backup_dest"
+fi
+}
+
+# Asks where the User wants to store the backup
+echo "Where do you want to store the Backup?"
+read dest
+
+# Backup
+tar czf $backup_dest/$filename $backup_dirs 2> /dev/null
+
+# Checks to see if Backup Completed Successfully
+if [[ $? -eq 0 ]]; then
+    echo "Backup Completed Successfully."
+    sleep 2
+    exit 0
+else
+    echo "Backup was Unsuccessful..."
+    sleep 2
+    exit 2
+fi
