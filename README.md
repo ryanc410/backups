@@ -53,10 +53,6 @@
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
-Here's a blank template to get started:
-**To avoid retyping too much info. Do a search and replace with your text editor for the following:**
-`github_username`, `repo_name`, `twitter_handle`, `email`, `project_title`, `project_description`
-
 
 ### Built With
 
@@ -68,7 +64,7 @@ Here's a blank template to get started:
 <!-- GETTING STARTED -->
 ## Getting Started
 
-git clone https://github.com/ryanc410/backups.git
+git clone https://github.com/ryanc410/backups
 
 cd backups
 
@@ -92,7 +88,7 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 <!-- ROADMAP -->
 ## Roadmap
 
-See the [open issues](https://github.com/ryanc410/backup/issues) for a list of open issues.
+See the [open issues](https://github.com/ryanc410/backups/issues) for a list of open issues.
 
 
 <!-- CONTRIBUTING -->
@@ -120,7 +116,7 @@ Distributed under the GNU General Public License. See `LICENSE` for more informa
 
 Ryan Cook - ryanhtown713@outlook.com
 
-Project Link: [https://github.com/ryanc410/backup](https://github.com/ryanc410/backup)
+Project Link: [https://github.com/ryanc410/backups](https://github.com/ryanc410/backups)
 
 
 
