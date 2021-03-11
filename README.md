@@ -13,7 +13,7 @@
     <a href="https://github.com/ryanc410/backups"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/ryanc410/backups/issues">Report Bug</a>
+    <a href="https://github.com/ryanc410/backups/issues/new">Report Bug</a>
     ·
     <a href="https://github.com/ryanc410/backups/issues">Request Feature</a>
   </p>
