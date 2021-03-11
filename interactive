@@ -28,6 +28,8 @@ fi
 echo "Where do you want to store the Backup?"
 read dest
 
+check_dest
+
 # Backup
 tar czf $backup_dest/$filename $backup_dirs 2> /dev/null
 
