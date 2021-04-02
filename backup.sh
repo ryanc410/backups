@@ -71,7 +71,7 @@ if [[ $@ == "" ]]; then
     sleep 2
     check_dir
     check_old
-    tar czf $dest/$archive_file $backup_files 2> /dev/null
+    tar czf $dest/$archive_file $default_backup_files 2> /dev/null
     status
 else
     echo "Starting backup of "$backup_files"..."
