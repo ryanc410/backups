@@ -2,8 +2,7 @@
 ########################################################################################
 # Author: Ryan Cook https://github.com/ryanc410                                        #
 #                                                                                      #
-# --DESCRIPTION--                                                                      #
-# Interactive Backup Script                                                            #
+# --DESCRIPTION--                                                                      #                                                          
 # -Provide arguments to customize what you want to backup.                             #
 # -If no arguments are provided, script uses a default set of directories to backup.   #
 #                                                                                      #
@@ -13,39 +12,29 @@
 #                                                                                      #
 ########################################################################################
 
-backup_files=( "$@" )
-default_backup_files="/etc /home /root /var/log /var/www"
-dest="/backups"
+###################################
+# VARIABLES
+##################################
 
-# FILENAME
-day=$(date +%A)
-hostname=$(hostname -s)
-archive_file="$hostname-$day.tgz"
+# Archive Name
+DAY=$(date +%m.%d.%y)
+SYS_NAME=$(hostname -s)
+ARCHIVE=${SYS_NAME}${DAY}.tgz
 
-check_old() {
-    if [[ -f "$dest"/"$archive_file" ]]; then
-        echo "A Backup already exists.. Do you wish to delete the old backup file?"
-        read opt1
-        case $opt1 in
-            y|Y|yes|Yes)
-                rm -rf "$dest"/"$archive_file"
-                ;;
-            n|N|no|No)
-                mv "$dest"/"$archive_file" "$dest"/2_"$archive_file"
-                ;;
-            *)
-                echo "$opt1 was not a valid choice. Exiting..."
-                sleep 2
-                exit 5
-                ;;
-        esac
-    fi
-}
+# Files/Directories
+BU_FILES=( "$@" )
+DEFAULT_FILES=( "/etc" "/home" "/root" )
+BU_DEST=/home/backups
+
+
+###################################
+# FUNCTIONS
+##################################
+
 check_dir() {
-if [[ ! -d "$dest" ]]; then
-    echo ""$dest" does not exist... Creating it now.."
-    mkdir -p $dest
-fi
+    if [[ ! -d ${BU_DEST} ]]; then
+        mkdir -p ${BU_DEST} &>/dev/null
+    fi
 }
 status() {
     if [[ $? -eq 0 ]]; then
@@ -58,25 +47,28 @@ status() {
         exit 4
     fi
 }
+
+###################################
+# SCRIPT
+##################################
+
 if [[ $EUID -ne 0 ]]; then
-    echo "Run it as root."
+    clear
+    echo "*****    SCRIPT MUST HAVE ROOT PRIVILEGES    *****"
     sleep 2
     exit 3
 fi
-
 if [[ $@ == "" ]]; then
-    echo "No directories were passed to the script."
+    echo "No directories were provided."
     echo ""
-    echo "Backing up "$default_backup_files" as default."
+    echo "Backing up default directories."
     sleep 2
     check_dir
-    check_old
-    tar czf $dest/$archive_file $default_backup_files 2> /dev/null
+    tar czf ${BU_DEST}/${ARCHIVE} ${DEFAULT_FILES}
     status
 else
-    echo "Starting backup of "$backup_files"..."
+    echo "Starting backup.."
     check_dir
-    check_old
-    tar czf $dest/$archive_file $backup_files 2> /dev/null
+    tar czf ${BU_DEST}/${ARCHIVE} ${BU_FILES}
     status
 fi
